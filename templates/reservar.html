@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Reservar Número</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+
+  <body>
+    <div class="formulario">
+      <h2>Reservar Número {{ "%03d"|format(numero.numero) }}</h2>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <form method="POST">
+        <input type="text" name="nome" placeholder="Seu nome" required />
+
+        <input
+          type="text"
+          name="telefone"
+          placeholder="Telefone / WhatsApp"
+          required
+        />
+
+        <button type="submit">Confirmar Reserva</button>
+      </form>
+    </div>
+  </body>
+</html>

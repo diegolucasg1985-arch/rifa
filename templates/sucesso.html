@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Reserva Confirmada</title>
+  </head>
+  <body>
+    <h1>✅ Reserva Confirmada!</h1>
+
+    <p>Número: <strong>{{ "%03d"|format(numero.numero) }}</strong></p>
+
+    <p>Nome: <strong>{{ numero.nome }}</strong></p>
+
+    <p>Telefone: <strong>{{ numero.telefone }}</strong></p>
+
+    <p>
+      Faça o pagamento via PIX:
+      <strong>62 99905-1610</strong>
+    </p>
+
+    <p>Valor: <strong>R$ 15,00</strong></p>
+
+    <p>Após o pagamento envie o comprovante.</p>
+
+    <a href="/">Voltar para a Rifa</a>
+  </body>
+</html>

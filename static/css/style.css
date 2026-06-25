@@ -1,0 +1,308 @@
+body {
+  font-family: Arial;
+
+  text-align: center;
+
+  background: #f7f2ff;
+}
+
+h1 {
+  color: #7b2cbf;
+}
+
+h2 {
+  background: white;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 10px;
+}
+.numero {
+  border: 2px solid #7c3aed;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+.reservado {
+  background: #ff4d4d;
+  color: white;
+  border-color: #ff0000;
+}
+.premios {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 30px 0;
+  flex-wrap: wrap;
+}
+
+.premio {
+  background: white;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+
+.premio img {
+  width: 100%;
+  max-height: 250px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.info-rifa {
+  max-width: 700px;
+  margin: 30px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.numero.disponivel {
+  background: white;
+  color: #000;
+}
+
+.numero.reservado {
+  background: #ffd700;
+  color: #000;
+}
+
+.numero.pago {
+  background: #4caf50;
+  color: white;
+}
+
+.formulario {
+  max-width: 400px;
+  margin: 60px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.formulario input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.formulario button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #7a3cff;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.estatisticas {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 18px;
+}
+
+.estatisticas p {
+  margin: 5px;
+}
+.dashboard {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  min-width: 150px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 24px;
+  font-weight: bold;
+  color: #6f42c1;
+}
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .numero {
+    padding: 12px 0;
+    font-size: 16px;
+  }
+
+  .info-rifa {
+    width: 95%;
+    margin: auto;
+  }
+
+  .formulario {
+    width: 95%;
+    margin: auto;
+  }
+
+  .table {
+    width: 100%;
+    font-size: 12px;
+    overflow-x: auto;
+    display: block;
+  }
+
+  .dashboard {
+    display: flex;
+    gap: 20px;
+    margin: 20px 0;
+  }
+
+  .card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    min-width: 150px;
+    text-align: center;
+  }
+
+  .barra {
+    width: 600px;
+    max-width: 90%;
+    height: 30px;
+    background: #ddd;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 15px auto;
+  }
+
+  .preenchimento {
+    height: 100%;
+    background: #6c3bd4;
+    transition: 0.5s;
+  }
+
+  .disponivel {
+    background: white;
+    color: #000;
+  }
+
+  .reservado {
+    background: #ffd700;
+    color: #000;
+  }
+
+  .pago {
+    background: #4caf50;
+    color: white;
+  }
+
+  .reservado span,
+  .pago span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: not-allowed;
+    text-decoration: none;
+  }
+  .btn-whatsapp {
+    display: inline-block;
+    background: #25d366;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 15px;
+  }
+
+  .btn-whatsapp:hover {
+    background: #1da851;
+  }
+
+  .legenda {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+
+  .item-legenda {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+  }
+
+  .cor {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+  }
+
+  .disponivel-legenda {
+    background: white;
+  }
+
+  .reservado-legenda {
+    background: #ffd700;
+  }
+
+  .pago-legenda {
+    background: #4caf50;
+  }
+  .legenda {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+  }
+
+  .item-legenda {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .cor {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+  }
+
+  .disponivel-legenda {
+    background-color: white;
+    border: 1px solid #999;
+  }
+
+  .reservado-legenda {
+    background-color: #ffd700;
+  }
+
+  .pago-legenda {
+    background-color: #4caf50;
+  }
+}
