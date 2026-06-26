@@ -26,3 +26,4 @@ class Numero(db.Model):
     telefone = db.Column(
         db.String(20)
     )
+   

@@ -1,3 +1,5 @@
+/* Geral 8*/
+
 body {
   font-family: Arial;
 
@@ -17,6 +19,8 @@ h2 {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
+/* GRID DA RIFA */
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
@@ -29,11 +33,22 @@ h2 {
   text-align: center;
   font-weight: bold;
 }
-.reservado {
-  background: #ff4d4d;
-  color: white;
-  border-color: #ff0000;
+
+.numero.disponivel {
+  background: white;
+  color: #000;
 }
+
+.numero.reservado {
+  background: #ffd700;
+  color: #000;
+}
+
+.numero.pago {
+  background: #4caf50;
+  color: rgb(21, 21, 21);
+}
+
 .premios {
   display: flex;
   justify-content: center;
@@ -70,21 +85,6 @@ h2 {
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-}
-
-.numero.disponivel {
-  background: white;
-  color: #000;
-}
-
-.numero.reservado {
-  background: #ffd700;
-  color: #000;
-}
-
-.numero.pago {
-  background: #4caf50;
-  color: white;
 }
 
 .formulario {
@@ -150,6 +150,24 @@ h2 {
   font-weight: bold;
   color: #6f42c1;
 }
+
+.barra {
+  width: 600px;
+  max-width: 90%;
+  height: 30px;
+  background: #ddd;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 15px auto;
+}
+
+.preenchimento {
+  width: 50%;
+  height: 100%;
+  background: #6c3bd4;
+  transition: 0.5s;
+}
+
 @media (max-width: 768px) {
   .grid {
     grid-template-columns: repeat(3, 1fr);
@@ -192,22 +210,6 @@ h2 {
     text-align: center;
   }
 
-  .barra {
-    width: 600px;
-    max-width: 90%;
-    height: 30px;
-    background: #ddd;
-    border-radius: 20px;
-    overflow: hidden;
-    margin: 15px auto;
-  }
-
-  .preenchimento {
-    height: 100%;
-    background: #6c3bd4;
-    transition: 0.5s;
-  }
-
   .disponivel {
     background: white;
     color: #000;
@@ -216,11 +218,6 @@ h2 {
   .reservado {
     background: #ffd700;
     color: #000;
-  }
-
-  .pago {
-    background: #4caf50;
-    color: white;
   }
 
   .reservado span,
@@ -278,25 +275,6 @@ h2 {
 
   .pago-legenda {
     background: #4caf50;
-  }
-  .legenda {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin: 20px 0;
-  }
-
-  .item-legenda {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .cor {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
   }
 
   .disponivel-legenda {

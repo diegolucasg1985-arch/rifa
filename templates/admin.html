@@ -10,85 +10,93 @@
     />
   </head>
   <body>
-    <h1>Painel Administrativo</h1>
-    <p>
-      <a href="/logout">🚪 Sair</a>
-    </p>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <div class="dashboard">
-      <div class="card">
-        <h3>Reservados</h3>
-        <p>{{ reservados }}</p>
+    <div class="container">
+      <h1>Painel Administrativo</h1>
+
+      <p>
+        <a href="/logout">🚪 Sair</a>
+      </p>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <div class="dashboard">
+        <div class="card">
+          <h3>Reservados</h3>
+          <p>{{ reservados }}</p>
+        </div>
+
+        <div class="card">
+          <h3>Disponíveis</h3>
+          <p>{{ disponiveis }}</p>
+        </div>
+
+        <div class="card">
+          <h3>Arrecadado</h3>
+          <p>R$ {{ arrecadado }}</p>
+        </div>
+      </div>
+      <h3>Progresso da Rifa</h3>
+
+      <div class="barra">
+        <div
+          class="preenchimento"
+          id="barra-progresso"
+          style="width: 50%"
+        ></div>
       </div>
 
-      <div class="card">
-        <h3>Disponíveis</h3>
-        <p>{{ disponiveis }}</p>
-      </div>
+      <p>Percentual: {{ percentual }}%</p>
 
-      <div class="card">
-        <h3>Arrecadado</h3>
-        <p>R$ {{ arrecadado }}</p>
-      </div>
+      <p>
+        <a href="/exportar">📊 Exportar para Excel</a>
+      </p>
+      <form method="GET" action="/admin">
+        <input
+          type="text"
+          name="busca"
+          placeholder="Buscar número ou nome"
+          value="{{ busca or '' }}"
+        />
+        <button type="submit">🔍 Buscar</button>
+      </form>
+
+      <br />
+      <table border="1">
+        <tr>
+          <th>Número</th>
+          <th>Status</th>
+          <th>Nome</th>
+          <th>Telefone</th>
+          <th>Ação</th>
+        </tr>
+
+        {% for numero in numeros %}
+
+        <tr>
+          <td>{{ "%03d"|format(numero.numero) }}</td>
+
+          <td>
+            {% if numero.status == "pago" %} 🟢 Pago {% elif numero.status ==
+            "reservado" %} 🟡 Reservado {% else %} ⚪ Disponível {% endif %}
+          </td>
+          <td>{{ numero.nome or "-" }}</td>
+
+          <td>{{ numero.telefone or "-" }}</td>
+
+          <td>
+            <a href="/toggle/{{ numero.id }}">
+              {% if numero.status == "disponivel" %} Reservar {% elif
+              numero.status == "reservado" %} Marcar Pago {% else %} Liberar {%
+              endif %}
+            </a>
+          </td>
+        </tr>
+
+        {% endfor %}
+      </table>
     </div>
-    <h3>Progresso da Rifa</h3>
 
-    <div class="barra">
-      <div class="preenchimento" id="barra-progresso"></div>
-    </div>
-
-    <p>Percentual: {{ percentual }}</p>
-
-    <p>
-      <a href="/exportar">📊 Exportar para Excel</a>
-    </p>
-    <form method="GET" action="/admin">
-      <input
-        type="text"
-        name="busca"
-        placeholder="Buscar número ou nome"
-        value="{{ busca or '' }}"
-      />
-      <button type="submit">🔍 Buscar</button>
-    </form>
-
-    <br />
-    <table border="1">
-      <tr>
-        <th>Número</th>
-        <th>Status</th>
-        <th>Nome</th>
-        <th>Telefone</th>
-        <th>Ação</th>
-      </tr>
-
-      {% for numero in numeros %}
-
-      <tr>
-        <td>{{ "%03d"|format(numero.numero) }}</td>
-
-        <td>
-          {% if numero.status == "pago" %} 🟢 Pago {% elif numero.status ==
-          "reservado" %} 🟡 Reservado {% else %} ⚪ Disponível {% endif %}
-        </td>
-        <td>{{ numero.nome or "-" }}</td>
-
-        <td>{{ numero.telefone or "-" }}</td>
-
-        <td>
-          <a href="/toggle/{{ numero.id }}">
-            {% if numero.status == "disponivel" %} Reservar {% elif
-            numero.status == "reservado" %} Marcar Pago {% else %} Liberar {%
-            endif %}
-          </a>
-        </td>
-      </tr>
-
-      {% endfor %}
-    </table>
+    <script>
+      document.getElementById("barra-progresso").style.width =
+        "{{ percentual }}%";
+    </script>
   </body>
-  <script>
-    document.getElementById("barra-progresso").style.width =
-      "{{ percentual }}%";
-  </script>
 </html>
