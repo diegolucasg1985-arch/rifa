@@ -7,7 +7,18 @@ app = Flask(__name__)
 
 app.secret_key = "rifa2026"
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
+import os
+
+database_url = os.getenv("DATABASE_URL", "sqlite:///database.db")
+
+if database_url.startswith("postgresql://"):
+    database_url = database_url.replace(
+        "postgresql://",
+        "postgresql+psycopg://",
+        1
+    )
+
+app.config["SQLALCHEMY_DATABASE_URI"] = database_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
