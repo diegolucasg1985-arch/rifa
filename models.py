@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 class Numero(db.Model):
-
     id = db.Column(db.Integer, primary_key=True)
 
     numero = db.Column(
@@ -13,10 +12,8 @@ class Numero(db.Model):
     )
 
     status = db.Column(
-        db.String(20),
+        db.String(50),
         default="disponivel"
-        "reservado"
-        "pago"
     )
 
     nome = db.Column(
@@ -26,4 +23,3 @@ class Numero(db.Model):
     telefone = db.Column(
         db.String(20)
     )
-   
