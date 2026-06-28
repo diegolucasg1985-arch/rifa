@@ -53,3 +53,11 @@ function atualizarCarrinho() {
   valorTotal.innerHTML =
     "R$ " + (carrinho.length * VALOR_NUMERO).toFixed(2).replace(".", ",");
 }
+
+function copiarPix() {
+  const pix = document.getElementById("pixKey").innerText;
+
+  navigator.clipboard.writeText(pix).then(() => {
+    alert("Chave PIX copiada!");
+  });
+}

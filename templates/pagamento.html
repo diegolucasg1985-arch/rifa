@@ -47,7 +47,13 @@
 
       <h3>PIX</h3>
 
-      <h2 style="color: #6c3bd4">f0110b0d-79f0-4e24-b324-5c35c6634b98</h2>
+      <div class="pix-box">
+        <span id="pixKey"> f0110b0d-79f0-4e24-b324-5c35c6634b98 </span>
+
+        <button onclick="copiarPix()" class="btn-copy" title="Copiar PIX">
+          📋
+        </button>
+      </div>
 
       <p>Faça o pagamento e envie o comprovante.</p>
 
@@ -63,5 +69,14 @@
 
       <a href="/"> Voltar para a Rifa </a>
     </div>
+    <script>
+      function copiarPix() {
+        const pix = document.getElementById("pixKey").innerText;
+
+        navigator.clipboard.writeText(pix).then(function () {
+          alert("Chave PIX copiada!");
+        });
+      }
+    </script>
   </body>
 </html>

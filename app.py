@@ -143,7 +143,13 @@ def confirmar_reserva():
 
     for id_numero in ids:
 
+        if not id_numero:
+            continue
+
         numero = Numero.query.get(int(id_numero))
+
+        if not numero:
+            continue
 
         if numero.status != "disponivel":
             return "Número indisponível."

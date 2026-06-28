@@ -195,6 +195,29 @@ h2 {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
 }
 
+.pix-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #f5f5f5;
+  padding: 10px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.btn-copy {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  transition: 0.2s;
+}
+
+.btn-copy:hover {
+  transform: scale(1.2);
+}
+
 @media (max-width: 768px) {
   .grid {
     grid-template-columns: repeat(3, 1fr);
