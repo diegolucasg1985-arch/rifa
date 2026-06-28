@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+
+    <title>Pagamento da Reserva</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+
+  <body>
+    <h1>✅ Reserva realizada!</h1>
+
+    <div class="info-rifa">
+      <h2>Aguardando pagamento</h2>
+      <h3>Código da Reserva</h3>
+
+      <div
+        style="
+          font-size: 26px;
+          font-weight: bold;
+          color: #6c3bd4;
+          margin-bottom: 20px;
+        "
+      >
+        {{ reserva.codigo }}
+      </div>
+
+      <p>Sua reserva foi criada com sucesso.</p>
+
+      <h3>Números Reservados</h3>
+
+      {% for numero in numeros %}
+
+      <div style="margin: 8px 0; font-size: 22px; font-weight: bold">
+        {{ "%03d"|format(numero.numero) }}
+      </div>
+
+      {% endfor %}
+
+      <hr />
+
+      <h2>Total: R$ {{ "%.2f"|format(total) }}</h2>
+
+      <h3>PIX</h3>
+
+      <h2 style="color: #6c3bd4">f0110b0d-79f0-4e24-b324-5c35c6634b98</h2>
+
+      <p>Faça o pagamento e envie o comprovante.</p>
+
+      <a
+        class="btn-whatsapp"
+        href="https://wa.me/5562999051610?text=Olá!%20Acabei%20de%20realizar%20o%20pagamento%20da%20rifa.%20Vou%20enviar%20o%20comprovante."
+        target="_blank"
+      >
+        Enviar comprovante pelo WhatsApp
+      </a>
+
+      <br /><br />
+
+      <a href="/"> Voltar para a Rifa </a>
+    </div>
+  </body>
+</html>

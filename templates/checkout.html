@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+
+    <title>Finalizar Reserva</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+
+  <body>
+    <h1>Finalizar Reserva</h1>
+
+    <div class="formulario">
+      <form action="/confirmar_reserva" method="POST">
+        <label>Nome</label>
+
+        <input type="text" name="nome" required />
+
+        <label>WhatsApp</label>
+
+        <input type="text" name="telefone" required />
+
+        <h2>Números escolhidos</h2>
+
+        {% for numero in numeros %}
+
+        <p>
+          {{ "%03d"|format(numero.numero) }}
+
+          <input type="hidden" name="ids" value="{{ numero.id }}" />
+        </p>
+
+        {% endfor %}
+
+        <h2>Total R$ {{ "%.2f"|format(total) }}</h2>
+
+        <button type="submit">Confirmar Reserva</button>
+      </form>
+    </div>
+  </body>
+</html>

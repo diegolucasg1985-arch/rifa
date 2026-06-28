@@ -1,10 +1,16 @@
 from flask import Flask, render_template, request, redirect, session, url_for
-from models import db, Numero
+from sqlalchemy import case
+from models import db, Numero, Reserva, ReservaNumero
 import pandas as pd
 from flask import send_file
+import random
+import string
 
 app = Flask(__name__)
 
+#Configuração da rifa
+
+VALOR_NUMERO = 15.00
 app.secret_key = "rifa2026"
 
 import os
@@ -37,6 +43,14 @@ with app.app_context():
 
         db.session.commit()
 
+def gerar_codigo():
+    codigo = "".join(
+        random.choices(
+            string.ascii_uppercase + string.digits,
+            k=6,
+        )
+    )
+    return f"MONY-{codigo}"
 
 @app.route("/")
 def index():
@@ -80,7 +94,88 @@ def reservar(id):
     "reservar.html",
     numero=numero
 )
-    
+   
+@app.route("/checkout")
+def checkout():
+
+    ids = request.args.get("ids", "")
+
+    if ids == "":
+        return redirect(url_for("index"))
+
+    lista_ids = [int(i) for i in ids.split(",")]
+
+    numeros = Numero.query.filter(
+        Numero.id.in_(lista_ids)
+    ).order_by(
+        case(
+            *[(Numero.id == i, pos) for pos, i in enumerate(lista_ids)],
+            else_=999
+        )
+    ).all()
+
+    total = len(numeros) * VALOR_NUMERO
+
+    return render_template(
+        "checkout.html",
+        numeros=numeros,
+        total=total
+    )
+
+@app.route("/confirmar_reserva", methods=["POST"])
+def confirmar_reserva():
+
+    nome = request.form["nome"]
+    telefone = request.form["telefone"]
+    ids = request.form.getlist("ids")
+
+    codigo = gerar_codigo()
+
+    reserva = Reserva(
+        codigo=codigo,
+        nome=nome,
+        telefone=telefone,
+        valor_total=len(ids) * VALOR_NUMERO,
+    )
+
+    db.session.add(reserva)
+    db.session.flush()
+
+    for id_numero in ids:
+
+        numero = Numero.query.get(int(id_numero))
+
+        if numero.status != "disponivel":
+            return "Número indisponível."
+
+        numero.nome = nome
+        numero.telefone = telefone
+        numero.status = "reservado"
+
+        db.session.add(
+            ReservaNumero(
+                reserva_id=reserva.id,
+                numero_id=numero.id,
+            )
+        )
+
+    db.session.commit()
+
+    numeros = (
+        Numero.query.filter(Numero.id.in_(ids))
+        .order_by(Numero.numero)
+        .all()
+    )
+
+    total = len(numeros) * VALOR_NUMERO
+
+    return render_template(
+        "pagamento.html",
+        numeros=numeros,
+        total=total,
+        reserva=reserva,
+    )
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
 
@@ -122,7 +217,7 @@ def admin():
         status="disponivel"
     ).count()
 
-    arrecadado = reservados * 15
+    arrecadado = reservados * VALOR_NUMERO
     percentual = round((reservados / 200) * 100)
 
     return render_template(
