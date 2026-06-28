@@ -36,7 +36,7 @@ class Reserva(db.Model):
     valor_total = db.Column(db.Float)
     status = db.Column(db.String(20), default="aguardando_pagamento")
     data = db.Column(db.DateTime, default=datetime.utcnow)
-
+    
     numeros = db.relationship("ReservaNumero", backref="reserva")
 
 class ReservaNumero(db.Model):
@@ -53,3 +53,4 @@ class ReservaNumero(db.Model):
         db.Integer,
         db.ForeignKey("numero.id")
     )
+    numero = db.relationship("Numero")

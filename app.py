@@ -219,21 +219,47 @@ def admin():
 
     arrecadado = reservados * VALOR_NUMERO
     percentual = round((reservados / 200) * 100)
+    reservas = Reserva.query.order_by(Reserva.data.desc()).all()
 
     return render_template(
     "admin.html",
     numeros=numeros,
+    reservas=reservas,
     reservados=reservados,
     disponiveis=disponiveis,
     arrecadado=arrecadado,
     percentual=percentual,
     busca=busca
+    
     )
 
 @app.route("/logout")
 def logout():
     session.pop("admin", None)
     return redirect("/login")
+
+@app.route("/confirmar_pagamento/<int:id>")
+def confirmar_pagamento(id):
+
+    if not session.get("admin"):
+        return redirect("/login")
+
+    reserva = Reserva.query.get(id)
+
+    if not reserva:
+        return "Reserva não encontrada."
+
+    reserva.status = "pago"
+
+    for item in reserva.numeros:
+        numero = Numero.query.get(item.numero_id)
+
+        if numero:
+            numero.status = "pago"
+
+    db.session.commit()
+
+    return redirect(url_for("admin"))
 
 @app.route("/toggle/<int:id>")
 def toggle(id):
