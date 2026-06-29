@@ -66,6 +66,7 @@
           <th>Código</th>
           <th>Nome</th>
           <th>Telefone</th>
+          <th>Data/Hora</th>
           <th>Números</th>
           <th>Valor</th>
           <th>Status</th>
@@ -77,22 +78,31 @@
           <td>{{ reserva.codigo }}</td>
           <td>{{ reserva.nome }}</td>
           <td>{{ reserva.telefone }}</td>
-          <td>R$ {{ "%.2f"|format(reserva.valor_total) }}</td>
+
+          <td>{{ reserva.data.strftime("%d/%m/%Y %H:%M") }}</td>
+
           <td>
             {% for item in reserva.numeros %} {{
             "%03d"|format(item.numero.numero) }}{% if not loop.last %}, {% endif
             %} {% endfor %}
           </td>
+
+          <td>R$ {{ "%.2f"|format(reserva.valor_total) }}</td>
+
           <td>
-            {% if reserva.status == "pago" %} 🟢 Pago {% else %} 🟡 Aguardando
-            pagamento {% endif %}
+            {% if reserva.status == "pago" %} 🟢 Pago {% elif reserva.status ==
+            "cancelada" %} 🔴 Cancelada {% else %} 🟡 Aguardando pagamento {%
+            endif %}
           </td>
+
           <td>
-            {% if reserva.status != "pago" %}
-            <a href="/confirmar_pagamento/{{ reserva.id }}">
-              Confirmar pagamento
-            </a>
-            {% else %} Confirmado {% endif %}
+            {% if reserva.status == "aguardando_pagamento" %}
+            <a href="/confirmar_pagamento/{{ reserva.id }}"
+              >Confirmar pagamento</a
+            >
+            |
+            <a href="/cancelar_reserva/{{ reserva.id }}">Cancelar</a>
+            {% else %} {{ reserva.status }} {% endif %}
           </td>
         </tr>
         {% endfor %}

@@ -269,6 +269,31 @@ def confirmar_pagamento(id):
 
     return redirect(url_for("admin"))
 
+@app.route("/cancelar_reserva/<int:id>")
+def cancelar_reserva(id):
+
+    if not session.get("admin"):
+        return redirect("/login")
+
+    reserva = Reserva.query.get(id)
+
+    if not reserva:
+        return "Reserva não encontrada."
+
+    for item in reserva.numeros:
+        numero = Numero.query.get(item.numero_id)
+
+        if numero and reserva.status != "pago":
+            numero.status = "disponivel"
+            numero.nome = None
+            numero.telefone = None
+
+    reserva.status = "cancelada"
+
+    db.session.commit()
+
+    return redirect(url_for("admin"))
+
 @app.route("/toggle/<int:id>")
 def toggle(id):
 
