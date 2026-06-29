@@ -127,7 +127,12 @@ def confirmar_reserva():
 
     nome = request.form["nome"]
     telefone = request.form["telefone"]
-    ids = request.form.getlist("ids")
+
+    ids = [
+        int(id_numero)
+        for id_numero in request.form.getlist("ids")
+        if id_numero
+    ]
 
     codigo = gerar_codigo()
 
@@ -143,16 +148,13 @@ def confirmar_reserva():
 
     for id_numero in ids:
 
-        if not id_numero:
-            continue
-
-        numero = Numero.query.get(int(id_numero))
+        numero = Numero.query.get(id_numero)
 
         if not numero:
             continue
 
         if numero.status != "disponivel":
-            return "Número indisponível."
+            return f"O número {numero.numero} não está mais disponível."
 
         numero.nome = nome
         numero.telefone = telefone
