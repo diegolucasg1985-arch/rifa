@@ -54,7 +54,19 @@
 
       <p><strong>Sorteio:</strong> 29/07/2026</p>
 
-      <p><strong>PIX:</strong>f0110b0d-79f0-4e24-b324-5c35c6634b98</p>
+      <p><strong>PIX:</strong></p>
+
+      <div class="pix-box">
+        <span id="pixKeyInicial">f0110b0d-79f0-4e24-b324-5c35c6634b98</span>
+
+        <button
+          onclick="copiarPixInicial()"
+          class="btn-copy"
+          title="Copiar PIX"
+        >
+          📋
+        </button>
+      </div>
       <p>
         <a
           href="https://wa.me/5562999051610?text=Olá,%20acabei%20de%20fazer%20o%20pagamento%20da%20rifa%20e%20vou%20enviar%20o%20comprovante."
@@ -143,5 +155,14 @@
       {% endfor %}
     </div>
     <script src="{{ url_for('static', filename='js/rifa.js') }}"></script>
+    <script>
+      function copiarPixInicial() {
+        const pix = document.getElementById("pixKeyInicial").innerText;
+
+        navigator.clipboard.writeText(pix).then(() => {
+          alert("Chave PIX copiada!");
+        });
+      }
+    </script>
   </body>
 </html>
